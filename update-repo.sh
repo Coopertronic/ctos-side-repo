@@ -37,21 +37,34 @@ else
     else
         echo $lineBreak
         echo "All done."
-        echo "Now pushing the repo to GitHub."
-        echo $lineBreak
-        cd ..
-        if !( update-git ); then
+
+        echo "Database creation complete."
+        echo "Do you want to push it to GitHub?"
+        echo "Yes or No? (y/n)"
+        read shallContinue
+        if ($shallContinue != "y"); then
             echo $lineBreak
-            echo "Something went wrong."
-            echo "See the above messages for errors."
+            echo "Please manually transfer the repo to the server."
             echo $lineBreak
-            exit 1
         else
+            echo "Now pushing the repo to GitHub."
             echo $lineBreak
-            echo "All done."
-            echo "The repo has successfully been pushed to GitHub."
-            echo $lineBreak
+            cd ..
+            if !( update-git ); then
+                echo $lineBreak
+                echo "Something went wrong."
+                echo "See the above messages for errors."
+                echo $lineBreak
+                exit 1
+            else
+                echo $lineBreak
+                echo "All done."
+                echo "The repo has successfully been pushed to GitHub."
+                echo $lineBreak
+            fi
         fi
+
     fi
+
 fi
 exit 0
